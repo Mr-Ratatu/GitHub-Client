@@ -10,6 +10,7 @@ import com.github.client.R
 import com.github.client.extension.chip
 import com.github.client.extension.connection
 import com.github.client.extension.loading
+import com.github.client.extension.profile
 import com.github.client.utils.ScreenState
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -41,4 +42,9 @@ fun setInternetError(view: View, state: ScreenState) {
 @BindingAdapter("loading")
 fun setLoading(progress: View, state: ScreenState) {
     progress.loading(state)
+}
+
+@BindingAdapter("profileUser")
+fun setProfile(view: View, state: ScreenState) {
+    view.profile(state)
 }

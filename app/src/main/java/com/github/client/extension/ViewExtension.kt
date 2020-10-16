@@ -24,3 +24,10 @@ fun View.loading(state: ScreenState) {
         else -> View.GONE
     }
 }
+
+fun View.profile(state: ScreenState) {
+    visibility = when (state) {
+        RESULT_OK -> View.VISIBLE
+        else -> View.GONE
+    }
+}

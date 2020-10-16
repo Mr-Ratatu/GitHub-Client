@@ -28,6 +28,10 @@ class ProfileFragment :
         binding.adapter = adapter
 
         viewModel.apply {
+            screenStateViewModel.observe(viewLifecycleOwner, Observer {
+                binding.state = it
+            })
+
             getProfileData(args.username).observe(viewLifecycleOwner, Observer {
                 binding.user = it
             })

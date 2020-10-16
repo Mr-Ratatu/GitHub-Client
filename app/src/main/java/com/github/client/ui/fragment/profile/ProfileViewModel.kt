@@ -77,9 +77,4 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
         screenStateViewModel.value = screenState
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        disposable.clear()
-    }
-
 }

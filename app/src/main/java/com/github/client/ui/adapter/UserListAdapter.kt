@@ -12,10 +12,10 @@ import com.github.client.ui.fragment.list.ListUsersFragmentDirections
 
 class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UsersViewHolder>() {
 
-    private val item = mutableListOf<UserListItem>()
+    private var item: List<UserListItem> = ArrayList()
 
     fun setData(list: List<UserListItem>) {
-        item.addAll(list)
+        this.item = list
         notifyDataSetChanged()
     }
 

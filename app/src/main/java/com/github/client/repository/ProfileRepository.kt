@@ -5,9 +5,7 @@ import com.github.client.model.UserProfile
 import com.github.client.model.UserReposItem
 import com.github.client.network.ApiService
 import io.reactivex.Single
-import javax.inject.Singleton
 
-@Singleton
 class ProfileRepository(private val apiService: ApiService) : BaseRepository() {
 
     fun getUser(userName: String): Single<UserProfile> = apiService.getUser(userName)
