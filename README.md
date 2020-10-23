@@ -11,8 +11,7 @@
 * Android Architecture Components (Lifecycle, LiveData, ViewModel, Room Persistence)
 * Material Design
 * DataBidning
-* ReactiveX
-* Navigation Architecture
+* RxKotlin
 * Retrofit2 & Gson for constructing the REST API
 * OkHttp3 for implementing interceptor, logging and mocking web server
 * Glide
