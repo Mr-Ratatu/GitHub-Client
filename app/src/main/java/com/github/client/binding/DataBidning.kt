@@ -1,16 +1,11 @@
 package com.github.client.binding
 
 import android.view.View
-import android.widget.ImageView
-import android.widget.ProgressBar
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.github.client.R
-import com.github.client.extension.chip
-import com.github.client.extension.connection
-import com.github.client.extension.loading
-import com.github.client.extension.profile
+import com.github.client.extension.*
 import com.github.client.utils.ScreenState
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -29,9 +24,9 @@ fun setUserAvatar(imageView: CircleImageView, avatarUrl: String?) {
         .into(imageView)
 }
 
-@BindingAdapter("languageCheck")
-fun setInternetError(view: View, language: String?) {
-    view.chip(language)
+@BindingAdapter("checkOnEmpty")
+fun setInternetError(view: View, str: String?) {
+    view.chip(str)
 }
 
 @BindingAdapter("noInternetConnection")
@@ -47,4 +42,9 @@ fun setLoading(progress: View, state: ScreenState) {
 @BindingAdapter("profileUser")
 fun setProfile(view: View, state: ScreenState) {
     view.profile(state)
+}
+
+@BindingAdapter("emptyList")
+fun setEmptyList(view: View, state: ScreenState) {
+    view.emptyList(state)
 }

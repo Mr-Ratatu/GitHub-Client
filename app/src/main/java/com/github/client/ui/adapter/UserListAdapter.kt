@@ -14,8 +14,8 @@ class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UsersViewHolder>() 
 
     private var item: List<UserListItem> = ArrayList()
 
-    fun setData(list: List<UserListItem>) {
-        this.item = list
+    fun setData(item: List<UserListItem>) {
+        this.item = item
         notifyDataSetChanged()
     }
 

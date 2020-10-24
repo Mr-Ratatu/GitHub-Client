@@ -43,8 +43,7 @@ data class UserReposItem(
     val eventsUrl: String,
     val fork: Boolean,
     val forks: Int,
-    @Json(name = "forks_count")
-    val forksCount: Int,
+    val forks_count: Int,
     @Json(name = "forks_url")
     val forksUrl: String,
     @Json(name = "full_name")
@@ -112,8 +111,7 @@ data class UserReposItem(
     val size: Int,
     @Json(name = "ssh_url")
     val sshUrl: String,
-    @Json(name = "stargazers_count")
-    val stargazersCount: Int,
+    val stargazers_count: Int,
     @Json(name = "stargazers_url")
     val stargazersUrl: String,
     @Json(name = "statuses_url")
@@ -134,6 +132,5 @@ data class UserReposItem(
     val updatedAt: String,
     val url: String,
     val watchers: Int,
-    @Json(name = "watchers_count")
-    val watchersCount: Int
+    val watchers_count: Int
 )

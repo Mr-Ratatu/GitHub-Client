@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.github.client.R
 import com.github.client.base.BaseFragment
@@ -12,7 +11,6 @@ import com.github.client.databinding.FragmentProfileBinding
 import com.github.client.network.RetrofitInstance
 import com.github.client.repository.ProfileRepository
 import com.github.client.ui.adapter.ReposListAdapter
-import kotlinx.android.synthetic.main.fragment_list_users.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment :
@@ -28,15 +26,15 @@ class ProfileFragment :
         binding.adapter = adapter
 
         viewModel.apply {
-            screenStateViewModel.observe(viewLifecycleOwner, Observer {
+            screenStateViewModel.observe(viewLifecycleOwner, {
                 binding.state = it
             })
 
-            getProfileData(args.username).observe(viewLifecycleOwner, Observer {
+            getProfileData(args.username).observe(viewLifecycleOwner, {
                 binding.user = it
             })
 
-            getReposItem(args.username).observe(viewLifecycleOwner, Observer {
+            getReposItem(args.username).observe(viewLifecycleOwner, {
                 adapter.setReposData(it)
             })
 

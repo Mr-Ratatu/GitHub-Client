@@ -6,11 +6,15 @@ import com.github.client.model.UserReposItem
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
     @GET("users")
     fun getListUsers(): Single<List<UserListItem>>
+
+    @GET("search/users")
+    fun getSearchUsers(@Query("q") username: String): Single<List<UserListItem>>
 
     @GET("users/{userName}")
     fun getUser(@Path("userName") userName: String): Single<UserProfile>

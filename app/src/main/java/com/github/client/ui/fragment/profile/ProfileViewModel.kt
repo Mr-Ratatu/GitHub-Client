@@ -2,7 +2,6 @@ package com.github.client.ui.fragment.profile
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.github.client.model.UserListItem
 import com.github.client.model.UserProfile
 import com.github.client.model.UserReposItem
 import com.github.client.repository.ProfileRepository

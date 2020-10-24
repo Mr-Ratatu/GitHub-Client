@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.github.client.ui.fragment.profile.ProfileFragment"
-        android:label="ProfileFragment" >
+        android:label="ProfileFragment">
         <argument
             android:name="username"
             app:argType="string" />

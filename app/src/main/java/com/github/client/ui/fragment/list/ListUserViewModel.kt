@@ -1,27 +1,26 @@
 package com.github.client.ui.fragment.list
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.github.client.model.UserListItem
 import com.github.client.repository.UserListRepository
-import com.github.client.utils.Constance.Companion.TAG
 import com.github.client.utils.ScreenState
+import com.github.client.utils.getScreenState
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.launch
 
 class ListUserViewModel(private val repository: UserListRepository) : ViewModel() {
 
+    var userSearchField = ""
     val screenStateViewModel = MutableLiveData<ScreenState>()
+    val userSearchList = MutableLiveData<List<UserListItem>>()
     private val userList = MutableLiveData<List<UserListItem>>()
     private val disposable = CompositeDisposable()
 
-    fun getListUser() : MutableLiveData<List<UserListItem>> {
+    fun getListUser(): MutableLiveData<List<UserListItem>> {
         screenStateViewModel.value = ScreenState.LOADING
         disposable += repository.getListUsers()
             .subscribeOn(Schedulers.io())
@@ -29,8 +28,7 @@ class ListUserViewModel(private val repository: UserListRepository) : ViewModel(
             .subscribeBy(
                 onSuccess = { list ->
                     userList.postValue(list)
-                    setScreenState(list)
-                    Log.d(TAG, "getListUser: successful")
+                    screenStateViewModel.value = getScreenState(list)
                 },
                 onError = {
                     it.printStackTrace()
@@ -41,13 +39,21 @@ class ListUserViewModel(private val repository: UserListRepository) : ViewModel(
         return userList
     }
 
-    private fun setScreenState(userList: List<UserListItem>) {
-        val screenState = if (userList.isNotEmpty())
-            ScreenState.RESULT_OK
-        else
-            ScreenState.EMPTY
-
-        screenStateViewModel.value = screenState
+    fun requestSearchUser(username: String) {
+        screenStateViewModel.postValue(ScreenState.LOADING)
+        disposable += repository.getSearchUser(username)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onSuccess = { userList ->
+                    userSearchList.postValue(userList)
+                    screenStateViewModel.value = getScreenState(userList)
+                },
+                onError = {
+                    it.printStackTrace()
+                    screenStateViewModel.postValue(ScreenState.RESULT_ERROR)
+                }
+            )
     }
 
     override fun onCleared() {
