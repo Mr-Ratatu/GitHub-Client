@@ -1,9 +1,6 @@
 # GitHubClient
----
 
 <img src="https://github.com/renat01/GitHubClient/raw/master/list.jpg" alt="Your image title" width="250"/> <img src="https://github.com/renat01/GitHubClient/raw/master/profile.jpg" alt="Your image title" width="250"/>
-
----
 
 ### Что было использовано для разработки:
 * Minimum SDK 23
