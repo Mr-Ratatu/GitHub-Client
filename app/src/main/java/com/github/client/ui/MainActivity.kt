@@ -1,4 +1,4 @@
-package com.github.client
+package com.github.client.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

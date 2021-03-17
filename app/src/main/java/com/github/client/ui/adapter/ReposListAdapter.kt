@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.github.client.R
 import com.github.client.databinding.RepositoryItemBinding
-import com.github.client.model.UserReposItem
+import com.github.client.data.model.UserReposItem
 
 class ReposListAdapter : RecyclerView.Adapter<ReposListAdapter.ReposListViewHolder>() {
 

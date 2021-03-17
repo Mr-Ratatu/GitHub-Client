@@ -1,8 +1,8 @@
 package com.github.client.extension
 
 import android.view.View
-import com.github.client.utils.ScreenState
-import com.github.client.utils.ScreenState.*
+import com.github.client.common.utils.ScreenState
+import com.github.client.common.utils.ScreenState.*
 
 fun View.emptyList(state: ScreenState) {
     visibility = when (state) {

@@ -1,4 +1,4 @@
-package com.github.client.binding
+package com.github.client.common.binding
 
 import android.view.View
 import androidx.databinding.BindingAdapter
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.github.client.R
 import com.github.client.extension.*
-import com.github.client.utils.ScreenState
+import com.github.client.common.utils.ScreenState
 import de.hdodenhof.circleimageview.CircleImageView
 
 @BindingAdapter("adapter")

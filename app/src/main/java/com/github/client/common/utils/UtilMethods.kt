@@ -1,4 +1,4 @@
-package com.github.client.utils
+package com.github.client.common.utils
 
 fun getScreenState(list: List<Any>) =
     if (list.isNotEmpty())

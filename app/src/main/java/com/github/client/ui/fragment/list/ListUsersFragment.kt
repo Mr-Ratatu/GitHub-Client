@@ -1,32 +1,30 @@
 package com.github.client.ui.fragment.list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import com.github.client.R
-import com.github.client.base.BaseFragment
+import com.github.client.common.base.BaseFragment
 import com.github.client.databinding.FragmentListUsersBinding
-import com.github.client.network.RetrofitInstance
-import com.github.client.repository.UserListRepository
 import com.github.client.ui.adapter.UserListAdapter
-import com.github.client.utils.Constance.Companion.MIN_USER_QUERY_LENGTH
-import com.github.client.utils.Constance.Companion.QUERY_DELAY
-import com.github.client.utils.Constance.Companion.TAG
-import com.github.client.utils.ScreenState.*
+import com.github.client.common.utils.Constance.Companion.MIN_USER_QUERY_LENGTH
+import com.github.client.common.utils.Constance.Companion.QUERY_DELAY
+import com.github.client.common.utils.ScreenState.*
+import com.github.client.extension.waitForTransition
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_list_users.*
 import java.util.concurrent.TimeUnit
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ListUsersFragment :
-    BaseFragment<ListUserViewModel, FragmentListUsersBinding, UserListRepository>() {
+    BaseFragment<FragmentListUsersBinding>() {
 
-    private var searchMenu: MenuItem? = null
-    private var searchView: SearchView? = null
+    private val listUserViewModel by viewModel<ListUserViewModel>()
+
     private val userListAdapter = UserListAdapter()
     private val disposable = CompositeDisposable()
 
@@ -37,21 +35,22 @@ class ListUsersFragment :
 
         binding.apply {
             adapter = userListAdapter
+            state = LOADING
+            waitForTransition(recyclerView)
         }
 
-        viewModel.apply {
+        listUserViewModel.apply {
 
             screenStateViewModel.observe(viewLifecycleOwner, {
                 binding.state = it
             })
 
-            getListUser().observe(viewLifecycleOwner, {
-                userListAdapter.setData(it)
-                Log.d(TAG, "onActivityCreated: successful")
+            userList.observe(viewLifecycleOwner, {
+                userListAdapter.submitList(it)
             })
 
             userSearchList.observe(viewLifecycleOwner, {
-                userListAdapter.setData(it)
+                userListAdapter.submitList(it)
             })
 
         }
@@ -61,11 +60,11 @@ class ListUsersFragment :
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.userlist_menu, menu)
 
-        searchMenu = menu.findItem(R.id.menu_action_search)
-        searchView = searchMenu?.actionView as SearchView
+        val searchMenu = menu.findItem(R.id.menu_action_search)
+        val searchView = searchMenu?.actionView as SearchView
 
-        observeSearchUsers(searchView!!)
-        checkSearchViewOnEmptyQuery(searchMenu!!, searchView!!)
+        observeSearchUsers(searchView)
+        checkSearchViewOnEmptyQuery(searchMenu, searchView)
     }
 
     private fun observeSearchUsers(searchView: SearchView) {
@@ -86,22 +85,22 @@ class ListUsersFragment :
             .distinctUntilChanged()
             .subscribeBy(
                 onNext = { username ->
-                    if (username.length < MIN_USER_QUERY_LENGTH) {
-                        viewModel.userSearchField = username
-                        viewModel.requestSearchUser(username)
+                    if (username.length > MIN_USER_QUERY_LENGTH) {
+                        listUserViewModel.userSearchField = username
+                        listUserViewModel.requestSearchUser(username)
                     } else {
-                        viewModel.userSearchList.postValue(emptyList())
-                        viewModel.screenStateViewModel.postValue(EMPTY)
+                        listUserViewModel.userSearchList.postValue(emptyList())
+                        listUserViewModel.screenStateViewModel.postValue(EMPTY)
                     }
                 }
             )
     }
 
     private fun checkSearchViewOnEmptyQuery(menuItem: MenuItem, searchView: SearchView) {
-        val searchField = viewModel.userSearchField
+        val searchField = listUserViewModel.userSearchField
         if (searchField.isNotEmpty()) {
             menuItem.expandActionView()
-            searchView.setQuery(viewModel.userSearchField, false)
+            searchView.setQuery(listUserViewModel.userSearchField, false)
         }
     }
 
@@ -110,13 +109,9 @@ class ListUsersFragment :
         super.onDestroyOptionsMenu()
     }
 
-    override fun getViewModel() = ListUserViewModel::class.java
-
     override fun getDataBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentListUsersBinding.inflate(inflater, container, false)
-
-    override fun getRepository() = UserListRepository(RetrofitInstance.api)
 
 }

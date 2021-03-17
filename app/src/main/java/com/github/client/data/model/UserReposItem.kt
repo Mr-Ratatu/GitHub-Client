@@ -1,4 +1,4 @@
-package com.github.client.model
+package com.github.client.data.model
 
 
 import com.squareup.moshi.Json

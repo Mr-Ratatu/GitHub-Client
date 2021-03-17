@@ -6,8 +6,12 @@
     <data>
 
         <variable
+            name="userList"
+            type="com.github.client.data.model.UserListItem" />
+
+        <variable
             name="user"
-            type="com.github.client.model.UserProfile" />
+            type="com.github.client.data.model.UserProfile" />
 
         <variable
             name="adapter"
@@ -15,7 +19,7 @@
 
         <variable
             name="state"
-            type="com.github.client.utils.ScreenState" />
+            type="com.github.client.common.utils.ScreenState" />
 
     </data>
 
@@ -27,11 +31,9 @@
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:profileUser="@{state}"
             tools:visibility="visible">
 
             <com.google.android.material.appbar.AppBarLayout
@@ -52,16 +54,31 @@
                         android:paddingBottom="10dp"
                         app:layout_collapseMode="parallax">
 
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{userList.login}"
+                            android:transitionName="login"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:layout_marginTop="56dp"
+                            app:layout_constraintEnd_toEndOf="@+id/profile_image"
+                            app:layout_constraintStart_toStartOf="@+id/profile_image"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Mr.Ratatu" />
+
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/profile_image"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:layout_marginTop="56dp"
+                            android:transitionName="profile"
+                            android:layout_marginTop="10dp"
                             app:civ_border_color="#FF000000"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:userAvatar="@{user.avatar_url}"
+                            app:layout_constraintTop_toBottomOf="@+id/materialTextView7"
+                            app:userAvatar="@{userList.avatar_url}"
                             tools:src="@tools:sample/avatars" />
 
                         <com.google.android.material.textview.MaterialTextView

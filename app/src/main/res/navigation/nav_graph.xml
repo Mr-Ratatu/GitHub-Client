@@ -19,7 +19,7 @@
         android:name="com.github.client.ui.fragment.profile.ProfileFragment"
         android:label="ProfileFragment">
         <argument
-            android:name="username"
-            app:argType="string" />
+            android:name="userList"
+            app:argType="com.github.client.data.model.UserListItem" />
     </fragment>
 </navigation>

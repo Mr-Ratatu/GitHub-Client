@@ -7,11 +7,12 @@
 
         <variable
             name="item"
-            type="com.github.client.model.UserListItem" />
+            type="com.github.client.data.model.UserListItem" />
 
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/user_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -27,6 +28,7 @@
                 android:id="@+id/profile_image"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:transitionName="@{@string/transition_avatar(item.id)}"
                 app:civ_border_color="#FF000000"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +37,7 @@
                 tools:src="@tools:sample/avatars" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/materialTextView"
+                android:id="@+id/login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -43,6 +45,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:transitionName="@{@string/transition_login(item.id)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/profile_image"
                 app:layout_constraintTop_toTopOf="parent"

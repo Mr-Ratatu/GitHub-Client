@@ -1,4 +1,4 @@
-package com.github.client.utils
+package com.github.client.common.utils
 
 class Constance {
 
